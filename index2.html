@@ -40,8 +40,8 @@ $(function() {
     ctx = canvas.getContext("2d");
     offsetX = canvas.width / 2;
     offsetY = canvas.height / 2;
-    minX = -offsetX;
-    maxX = offsetX;
+    minX = 200; // -offsetX;
+    maxX = 200; // offsetX;
     drawLine(0, offsetY, canvas.width, offsetY);
     drawLine(offsetX, 0, offsetX, canvas.height);	
 });

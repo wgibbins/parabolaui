@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page - My ASP.NET Application</title>
+    <title>Home Page - My node.js Application</title>
     <!-- <script src="~/Scripts/jquery-1.10.2.js"></script> -->
 </head>
 <body>
@@ -37,8 +37,8 @@ $(function() {
     ctx = canvas.getContext("2d");
     offsetX = canvas.width / 2;
     offsetY = canvas.height / 2;
-    minX = -offsetX;
-    maxX = offsetX;
+    minX = -200; // -offsetX;
+    maxX = 200; // offsetX;
     drawLine(0, offsetY, canvas.width, offsetY);
     drawLine(offsetX, 0, offsetX, canvas.height);	
 });
@@ -51,6 +51,7 @@ var offsetX;
 var offsetY;
 
 function clickHandler() {
+    // doesn't work in Chrome, breaks same origin policy, may work in IE :-)
     var myUrl = window.location.protocol + '//' + window.location.hostname + ":8080/";
 	alert(myUrl);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
