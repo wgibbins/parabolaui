@@ -60,8 +60,9 @@ function clickHandler() {
 	var nodeCount = $("#nodeCount").val();	
     for (var i = minX; i < maxX; i++) {
 		var lastPortDigit = i % nodeCount;
+        // doesn't work in Chrome, breaks same origin policy, may work in IE :-)		
         $.ajax({
-            url: "http://localhost:808" + lastPortDigit + "/",
+            url: window.location.protocol + '//' + window.location.hostname + ":808" + lastPortDigit + "/",
             data: {
                 x: i,
                 a: $("#a").val(),

@@ -50,21 +50,27 @@ var maxX;
 var offsetX;
 var offsetY;
 
-
 function clickHandler() {
+    var myUrl = window.location.protocol + '//' + window.location.hostname + ":8080/";
+	alert(myUrl);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawLine(0, offsetY, canvas.width, offsetY);
     drawLine(offsetX, 0, offsetX, canvas.height);		
     for (var i = minX; i < maxX; i++) {
         $.ajax({
-            url: "http://localhost:8080/",
+            url: myUrl,
             data: {
                 x: i,
                 a: $("#a").val(),
                 b: $("#b").val(),
                 c: $("#c").val(),
             },
-            success: drawPoint
+			cache: false,
+            success: drawPoint,
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+            }
         });
     }
 }
