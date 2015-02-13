@@ -53,7 +53,7 @@ var offsetY;
 function clickHandler() {
     // doesn't work in Chrome, breaks same origin policy, may work in IE :-)
     var myUrl = window.location.protocol + '//' + window.location.hostname + ":8080/";
-	alert(myUrl);
+// 	alert(myUrl);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawLine(0, offsetY, canvas.width, offsetY);
     drawLine(offsetX, 0, offsetX, canvas.height);		
