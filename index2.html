@@ -40,7 +40,7 @@ $(function() {
     ctx = canvas.getContext("2d");
     offsetX = canvas.width / 2;
     offsetY = canvas.height / 2;
-    minX = 200; // -offsetX;
+    minX = -200; // -offsetX;
     maxX = 200; // offsetX;
     drawLine(0, offsetY, canvas.width, offsetY);
     drawLine(offsetX, 0, offsetX, canvas.height);	
@@ -59,17 +59,22 @@ function clickHandler() {
     drawLine(offsetX, 0, offsetX, canvas.height);	
 	var nodeCount = $("#nodeCount").val();	
     for (var i = minX; i < maxX; i++) {
-		var lastPortDigit = i % nodeCount;
+		var lastPortDigit = Math.abs(i % nodeCount);
+		var nodeUrl = window.location.protocol + '//' + window.location.hostname + ":808" + lastPortDigit + "/";
         // doesn't work in Chrome, breaks same origin policy, may work in IE :-)		
         $.ajax({
-            url: window.location.protocol + '//' + window.location.hostname + ":808" + lastPortDigit + "/",
+            url: nodeUrl,
             data: {
                 x: i,
                 a: $("#a").val(),
                 b: $("#b").val(),
                 c: $("#c").val(),
             },
-            success: drawPoint
+            success: drawPoint,
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+            }			
         });
     }
 }
