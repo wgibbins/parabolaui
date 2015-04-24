@@ -1,36 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page - My node.js Application</title>
-    <!-- <script src="~/Scripts/jquery-1.10.2.js"></script> -->
-</head>
-<body>
-    <div class="container body-content">      
-		<div>
-			<h1>Draw a parabola!</h1>
-			<p>
-				y = a(x * x) + bx + c
-			</p>
-			a = <input type="text" id ="a"/>
-			<br/>
-			b = <input type="text" id="b" />
-			<br />
-			c = <input type="text" id="c" />
-			<br/>
-			<button id="go">Go!</button>
-			<br />
-			<canvas id="parabolaCanvas" width="900" height="600" style="border-style: solid; border-width: 1px;"></canvas>
-		</div>
-		<hr />
-	</div>
-	<footer>
-		<p>&copy; 2015 - My node.js Application</p>
-	</footer>
-	
-<script src="https://code.jquery.com/jquery-2.1.3.js"></script>
-<script>
+// Functions to support drawing parabolas
+// this is the poorly thought out version that only works in IE
 $(function() {
     $("#go").click(clickHandler);
     canvas = document.getElementById("parabolaCanvas");
@@ -40,7 +9,7 @@ $(function() {
     minX = -200; // -offsetX;
     maxX = 200; // offsetX;
     drawLine(0, offsetY, canvas.width, offsetY);
-    drawLine(offsetX, 0, offsetX, canvas.height);	
+    drawLine(offsetX, 0, offsetX, canvas.height);   
 });
 
 var canvas;
@@ -51,27 +20,27 @@ var offsetX;
 var offsetY;
 
 function clickHandler() {
-    // doesn't work in Chrome, breaks same origin policy, may work in IE :-)
-    var myUrl = window.location.protocol + '//' + window.location.hostname + ":8080/";
-// 	alert(myUrl);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawLine(0, offsetY, canvas.width, offsetY);
-    drawLine(offsetX, 0, offsetX, canvas.height);		
+    drawLine(offsetX, 0, offsetX, canvas.height);   
+    var nodeCount = $("#nodeCount").val();  
     for (var i = minX; i < maxX; i++) {
+        var lastPortDigit = Math.abs(i % );
+        var nodeUrl = window.location.protocol + '//' + window.location.hostname + ":4500" + lastPortDigit + "/";
+        // doesn't work in Chrome, breaks same origin policy, may work in IE :-)        
         $.ajax({
-            url: myUrl,
+            url: nodeUrl,
             data: {
                 x: i,
                 a: $("#a").val(),
                 b: $("#b").val(),
                 c: $("#c").val(),
             },
-			cache: false,
             success: drawPoint,
             error: function (xhr, ajaxOptions, thrownError) {
                 alert(xhr.status);
                 alert(thrownError);
-            }
+            }           
         });
     }
 }
@@ -91,6 +60,4 @@ function drawPoint(data) {
     ctx.fillRect(x, y, 3, 3);
 }
 
-</script>
-</body>
-</html>
+
